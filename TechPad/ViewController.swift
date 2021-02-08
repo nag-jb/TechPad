@@ -19,12 +19,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //音楽家の画像を入れるための配列
     var imageNameArray = [String]()
     //音楽を再生するための配列
-    var audioPlayer = AVAudioPlayer!
+    var audioPlayer : AVAudioPlayer!
     //
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         //テーブルビューのデータソースメソッドはViewControllクラスに書くよという設定
         table.dataSource = self
@@ -34,10 +33,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         //songNameArrayに曲名を入れていく
         songNameArray = ["カノン", "エリーゼのために", "G線上のアリア"]
+        
         //fileNameArrayに曲名を入れていく
-        songNameArray = ["cannon", "elise", "aria"]
+        fileNameArray = ["cannon", "elise", "aria"]
+        
         //imageNameArrayに曲の画像を入れていく
-        songNameArray = ["Pachelbel.jpg", "Beethoven.jpg", "Bach.jpg"]
+        imageNameArray = ["Pachelbel.jpg", "Beethoven.jpg", "Bach.jpg"]
     }
     
     //セルの数を設定
@@ -53,27 +54,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //セルにsongNameArrayの曲名を表示する
         cell?.textLabel?.text = songNameArray[indexPath.row]
         
-        //セルにsongNameArrayの曲名を表示する
+        //セルに音楽家の画像を表示する
         cell?.imageView?.image = UIImage(named: imageNameArray[indexPath.row])
         
         return cell!
-        
     }
     
     //セルが押された時に呼ばれるメソッド
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        print("\(songNameArray[indexPath.row])が選ばれました！")
+    func tableView(_ tableVie: UITableView, didSelectRowAt indexPath: IndexPath){
+        print("\(songNameArray[indexPath.row])が選ばれました")
         
         //音楽ファイルの設定
-        let audioPath = URL(fileURLWithPath: Bundle.main.path(forResource:fileNameArray[indexPath.row], ofType: "mp3")!)
+        let audioPath = URL(fileURLWithPath: Bundle.main.path(forResource: fileNameArray[indexPath.row], ofType: "mp3")!)
         
         //再生の準備
-        audioPlayer = try? AVAudioPlayer(contentsOf: audioPath)
+        audioPlayer =  try? AVAudioPlayer(contentsOf: audioPath)
         
         //音楽を再生
         audioPlayer.play()
     }
-
 
 }
 
